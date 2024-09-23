@@ -22,6 +22,9 @@ public class PlayerController : MonoBehaviour {
 
     // UI text component to display count of "PickUp" objects collected.
     public TextMeshProUGUI countText;
+    public GameObject countTextObject;
+
+    public GameObject loseTextObject;
 
     // UI object to display winning text.
     public GameObject winTextObject;
@@ -38,7 +41,9 @@ public class PlayerController : MonoBehaviour {
         SetCountText();
 
         // Initially set the win text to be inactive.
+        loseTextObject.SetActive(false);
         winTextObject.SetActive(false);
+
     }
 
     // This function is called when a move input is detected.
@@ -73,6 +78,11 @@ public class PlayerController : MonoBehaviour {
             // Update the count display.
             SetCountText();
         }
+        else if (other.gameObject.CompareTag("Enemy")) {
+            // Deactivate the collided object (making it disappear).
+            rb.gameObject.SetActive(false);
+            SetLoseScreen();
+        }
     }
 
     // Function to update the displayed count of "PickUp" objects collected.
@@ -84,6 +94,13 @@ public class PlayerController : MonoBehaviour {
         if (count >= 8) {
             // Display the win text.
             winTextObject.SetActive(true);
+            rb.gameObject.SetActive(false);
         }
+    }
+    // Correctly enables and disables ui elements when enemy is hit
+    void SetLoseScreen() {
+        countTextObject.SetActive(false);
+        winTextObject.SetActive(false);
+        loseTextObject.SetActive(true);
     }
 }
