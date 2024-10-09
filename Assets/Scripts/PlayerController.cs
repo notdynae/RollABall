@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using Cinemachine;
 
 public class PlayerController : MonoBehaviour {
 
@@ -29,8 +30,11 @@ public class PlayerController : MonoBehaviour {
     // UI object to display winning text.
     public GameObject winTextObject;
 
-    // Start is called before the first frame update.
-    void Start() {
+    // Cinemachine camera refernces
+	public Transform playerCam;
+
+	// Start is called before the first frame update.
+	void Start() {
         // Get and store the Rigidbody component attached to the player.
         rb = GetComponent<Rigidbody>();
 
@@ -48,12 +52,23 @@ public class PlayerController : MonoBehaviour {
 
     // This function is called when a move input is detected.
     void OnMove(InputValue movementValue) {
-        // Convert the input value into a Vector2 for movement.
-        Vector2 movementVector = movementValue.Get<Vector2>();
 
-        // Store the X and Y components of the movement.
-        movementX = movementVector.x;
-        movementY = movementVector.y;
+        // Camera position information for movement
+        Vector3 camForward = playerCam.forward;
+		Vector3 camRight = playerCam.right;
+
+
+        camForward.y = 0;
+        camRight.y = 0;
+
+		// Convert the input value into a Vector2 for movement.
+		Vector2 movementVector = movementValue.Get<Vector2>();
+
+        Vector3 relativeVector = (camForward * movementVector.y + camRight * movementVector.x);
+
+		// Store the X and Y components of the movement.
+		movementX = relativeVector.x;
+        movementY = relativeVector.y;
     }
 
     // FixedUpdate is called once per fixed frame-rate frame.
