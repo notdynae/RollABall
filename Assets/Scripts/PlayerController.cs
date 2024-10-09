@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     // Movement along X and Y axes.
     private float movementX;
     private float movementY;
+    private Vector3 movement;
 
     // Speed at which the player moves.
     public float speed = 0;
@@ -64,35 +65,31 @@ public class PlayerController : MonoBehaviour {
     // FixedUpdate is called once per fixed frame-rate frame.
     private void FixedUpdate() {
 
-		// Get the direction the camera is facing, constrained to the Y-axis only
-		Vector3 cameraForward = Camera.main.transform.forward;
-		cameraForward.y = 0;  // Ensure no vertical rotation is applied (Y-axis locked)
-
-		// Calculate the new rotation that matches the camera's facing direction
-		Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
-		// Create a 3D movement vector using the X and Y inputs.
-		Vector3 movement = new Vector3(movementX, 0.0f, movementY);
-
-        movement = targetRotation * movement;
         // Apply force to the Rigidbody to move the player.
         rb.AddForce(movement * speed);
     }
+	private void LateUpdate() {
 
-	private void Update() {
+		// Get the direction the camera is facing, constrained to the Y-axis only
+		Vector3 cam = Camera.main.transform.forward;
+		cam.y = 0;  // Ensure no vertical rotation is applied (Y-axis locked)
 
+		// (cam.forward.x, 0, cam.forward.z).normalized
+
+		// Calculate the new rotation that matches the camera's facing direction
+		Quaternion targetRotation = Quaternion.LookRotation(cam.normalized);
+		// Create a 3D movement vector using the X and Y inputs.
+		movement = new Vector3(movementX, 0.0f, movementY);
+
+		movement = targetRotation * movement;
 	}
-
 
 	void OnTriggerEnter(Collider other) {
         // Check if the object the player collided with has the "PickUp" tag.
         if (other.gameObject.CompareTag("PickUp")) {
-            // Deactivate the collided object (making it disappear).
             other.gameObject.SetActive(false);
-
             // Increment the count of "PickUp" objects collected.
             count = count + 1;
-
-            // Update the count display.
             SetCountText();
         }
         else if (other.gameObject.CompareTag("Enemy")) {
@@ -100,7 +97,11 @@ public class PlayerController : MonoBehaviour {
             rb.gameObject.SetActive(false);
             SetLoseScreen();
         }
-    }
+		else if (other.gameObject.CompareTag("Goal")) {
+			Debug.Log("Goal Reached");
+			return;
+		}
+	}
 
     // Function to update the displayed count of "PickUp" objects collected.
     void SetCountText() {
