@@ -53,35 +53,37 @@ public class PlayerController : MonoBehaviour {
     // This function is called when a move input is detected.
     void OnMove(InputValue movementValue) {
 
-        // Camera position information for movement
-        Vector3 camForward = playerCam.forward;
-		Vector3 camRight = playerCam.right;
-
-
-        camForward.y = 0;
-        camRight.y = 0;
-
 		// Convert the input value into a Vector2 for movement.
 		Vector2 movementVector = movementValue.Get<Vector2>();
 
-        Vector3 relativeVector = (camForward * movementVector.y + camRight * movementVector.x);
-
 		// Store the X and Y components of the movement.
-		movementX = relativeVector.x;
-        movementY = relativeVector.y;
+        movementX = movementVector.x;
+        movementY = movementVector.y;
     }
 
     // FixedUpdate is called once per fixed frame-rate frame.
     private void FixedUpdate() {
-        // Create a 3D movement vector using the X and Y inputs.
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
+		// Get the direction the camera is facing, constrained to the Y-axis only
+		Vector3 cameraForward = Camera.main.transform.forward;
+		cameraForward.y = 0;  // Ensure no vertical rotation is applied (Y-axis locked)
+
+		// Calculate the new rotation that matches the camera's facing direction
+		Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+		// Create a 3D movement vector using the X and Y inputs.
+		Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+
+        movement = targetRotation * movement;
         // Apply force to the Rigidbody to move the player.
         rb.AddForce(movement * speed);
     }
 
+	private void Update() {
 
-    void OnTriggerEnter(Collider other) {
+	}
+
+
+	void OnTriggerEnter(Collider other) {
         // Check if the object the player collided with has the "PickUp" tag.
         if (other.gameObject.CompareTag("PickUp")) {
             // Deactivate the collided object (making it disappear).
