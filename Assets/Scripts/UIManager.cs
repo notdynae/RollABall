@@ -6,13 +6,27 @@ using UnityEngine.InputSystem;
 using TMPro;
 using Cinemachine;
 
-public class UIManager : MonoBehaviour
-{
+public class UIManager : MonoBehaviour {
+
+	// ---------------------------- script refernces
+
+	public PlayerController playerController;
+
 	// ---------------------------- gameObject references
 
 	public GameObject mainMenuUI;
 	public GameObject levelSelectUI;
 	public GameObject gamePlayUI;
+
+
+	// UI text component to display count of "PickUp" objects collected.
+	public TextMeshProUGUI countText;
+	public GameObject countTextObject;
+
+	public GameObject loseTextObject;
+
+	// UI object to display winning text.
+	public GameObject winTextObject;
 
 	// ---------------------------- ui switching methods
 
@@ -34,11 +48,29 @@ public class UIManager : MonoBehaviour
 		levelSelectUI.SetActive(false);
 	}
 
+
+	// Function to update the displayed count of "PickUp" objects collected.
+	public void SetCountText() {
+		// Update the count text with the current count.
+		countText.text = "Rings: " + playerController.count.ToString();
+	}
+	// Correctly enables and disables ui elements when enemy is hit
+	public void SetLoseScreen() {
+		countTextObject.SetActive(false);
+		winTextObject.SetActive(false);
+		loseTextObject.SetActive(true);
+	}
+
 	// Start is called before the first frame update
 	void Start()
     {
-        
-    }
+		// Update the count display.
+		SetCountText();
+
+		// Initially set the win text to be inactive.
+		loseTextObject.SetActive(false);
+		winTextObject.SetActive(false);
+	}
 
     // Update is called once per frame
     void Update()
