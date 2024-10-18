@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour {
 	// ---------------------------- gameObject references
 
 	public GameObject mainMenuUI;
-	public GameObject levelSelectUI;
+	//public GameObject levelSelectUI;
 	public GameObject gamePlayUI;
 
 
@@ -34,10 +34,10 @@ public class UIManager : MonoBehaviour {
 		DisableAllUIPanels();
 		mainMenuUI.SetActive(true);
 	}
-	public void UILevelSelect() {
-		DisableAllUIPanels();
-		levelSelectUI.SetActive(true);
-	}
+	//public void UILevelSelect() {
+	//	DisableAllUIPanels();
+	//	levelSelectUI.SetActive(true);
+	//}
 	public void UIGamePlay() {
 		DisableAllUIPanels();
 		gamePlayUI.SetActive(true);
@@ -45,7 +45,9 @@ public class UIManager : MonoBehaviour {
 	public void DisableAllUIPanels() {
 		gamePlayUI.SetActive(false);
 		mainMenuUI.SetActive(false);
-		levelSelectUI.SetActive(false);
+		//levelSelectUI.SetActive(false);
+		loseTextObject.SetActive(false);
+		winTextObject.SetActive(false);
 	}
 
 
@@ -60,21 +62,13 @@ public class UIManager : MonoBehaviour {
 		winTextObject.SetActive(false);
 		loseTextObject.SetActive(true);
 	}
-
-	// Start is called before the first frame update
-	void Start()
-    {
-		// Update the count display.
-		SetCountText();
-
-		// Initially set the win text to be inactive.
+	public void SetWinScreen() {
+		countTextObject.SetActive(false);
+		winTextObject.SetActive(true);
 		loseTextObject.SetActive(false);
-		winTextObject.SetActive(false);
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		// Start is called before the first frame update
+	void Start() {
+	}
 }

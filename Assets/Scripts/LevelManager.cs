@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
 
 		if (nextScene <= SceneManager.sceneCountInBuildSettings) {
 			LoadScene(nextScene);
+			uiManager.UIGamePlay();
 		}
 
 		else if (nextScene > SceneManager.sceneCountInBuildSettings) {

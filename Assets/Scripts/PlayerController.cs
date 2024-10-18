@@ -84,8 +84,12 @@ public class PlayerController : MonoBehaviour {
         }
 		else if (other.gameObject.CompareTag("Goal")) {
 			Debug.Log("Goal Reached");
+			rb.gameObject.SetActive(false);
+			uiManager.SetWinScreen();
 			return;
 		}
 	}
+
+
 
 }
