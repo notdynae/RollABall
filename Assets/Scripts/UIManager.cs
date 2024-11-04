@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour {
 	// ---------------------------- gameObject references
 
 	public GameObject mainMenuUI;
-	//public GameObject levelSelectUI;
+	public GameObject levelSelectUI;
 	public GameObject gamePlayUI;
 
 
@@ -34,10 +34,10 @@ public class UIManager : MonoBehaviour {
 		DisableAllUIPanels();
 		mainMenuUI.SetActive(true);
 	}
-	//public void UILevelSelect() {
-	//	DisableAllUIPanels();
-	//	levelSelectUI.SetActive(true);
-	//}
+	public void UILevelSelect() {
+		DisableAllUIPanels();
+		levelSelectUI.SetActive(true);
+	}
 	public void UIGamePlay() {
 		DisableAllUIPanels();
 		gamePlayUI.SetActive(true);
@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour {
 	public void DisableAllUIPanels() {
 		gamePlayUI.SetActive(false);
 		mainMenuUI.SetActive(false);
-		//levelSelectUI.SetActive(false);
+		levelSelectUI.SetActive(false);
 		loseTextObject.SetActive(false);
 		winTextObject.SetActive(false);
 	}
