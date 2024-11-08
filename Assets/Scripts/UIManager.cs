@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject gamePlayUI;
 
 
+
 	// UI text component to display count of "PickUp" objects collected.
 	public TextMeshProUGUI countText;
 	public GameObject countTextObject;
@@ -27,6 +28,9 @@ public class UIManager : MonoBehaviour {
 
 	// UI object to display winning text.
 	public GameObject winTextObject;
+	
+	public GameObject nextLevelObject;
+	public GameObject restartLevelObject;
 
 	// ---------------------------- ui switching methods
 
@@ -61,11 +65,13 @@ public class UIManager : MonoBehaviour {
 		countTextObject.SetActive(false);
 		winTextObject.SetActive(false);
 		loseTextObject.SetActive(true);
+		restartLevelObject.SetActive(true);
 	}
 	public void SetWinScreen() {
 		countTextObject.SetActive(false);
 		winTextObject.SetActive(true);
 		loseTextObject.SetActive(false);
+		nextLevelObject.SetActive(true);
 	}
 
 		// Start is called before the first frame update
