@@ -8,7 +8,7 @@ using Cinemachine;
 
 public class UIManager : MonoBehaviour {
 
-	// ---------------------------- script refernces
+	// ---------------------------- script references
 
 	public PlayerController playerController;
 
@@ -18,15 +18,11 @@ public class UIManager : MonoBehaviour {
 	public GameObject levelSelectUI;
 	public GameObject gamePlayUI;
 
-
-
 	// UI text component to display count of "PickUp" objects collected.
 	public TextMeshProUGUI countText;
 	public GameObject countTextObject;
 
 	public GameObject loseTextObject;
-
-	// UI object to display winning text.
 	public GameObject winTextObject;
 	
 	public GameObject nextLevelObject;
@@ -45,13 +41,17 @@ public class UIManager : MonoBehaviour {
 	public void UIGamePlay() {
 		DisableAllUIPanels();
 		gamePlayUI.SetActive(true);
+		loseTextObject.SetActive(false);
+		winTextObject.SetActive(false);
 	}
-	public void DisableAllUIPanels() {
+	private void DisableAllUIPanels() {
 		gamePlayUI.SetActive(false);
 		mainMenuUI.SetActive(false);
 		levelSelectUI.SetActive(false);
 		loseTextObject.SetActive(false);
 		winTextObject.SetActive(false);
+		restartLevelObject.SetActive(false);
+		nextLevelObject.SetActive(false);
 	}
 
 
@@ -67,14 +67,11 @@ public class UIManager : MonoBehaviour {
 		loseTextObject.SetActive(true);
 		restartLevelObject.SetActive(true);
 	}
+
 	public void SetWinScreen() {
 		countTextObject.SetActive(false);
 		winTextObject.SetActive(true);
 		loseTextObject.SetActive(false);
 		nextLevelObject.SetActive(true);
-	}
-
-		// Start is called before the first frame update
-	void Start() {
 	}
 }

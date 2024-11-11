@@ -33,9 +33,11 @@ public class LevelManager : MonoBehaviour
 
 	public void LoadSelectLevel(int level) {
 		nextScene = SceneManager.GetActiveScene().buildIndex + level;
-		{
-			LoadScene(nextScene);
-		}
+		LoadScene(nextScene);
+	}
+
+	public void RestartLevel() {
+		LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
