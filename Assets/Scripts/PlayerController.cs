@@ -11,9 +11,10 @@ public class PlayerController : MonoBehaviour {
     // ---------------------------- script references
 
     public UIManager uiManager;
+    public GameStateManager gamestateManager;
 
     // Rigidbody of the player.
-    private Rigidbody rb;
+    public Rigidbody rb;
 
     // Variable to keep track of collected "PickUp" objects.
     public int count;
@@ -83,9 +84,12 @@ public class PlayerController : MonoBehaviour {
             uiManager.SetLoseScreen();
         }
 		else if (other.gameObject.CompareTag("Goal")) {
-			Debug.Log("Goal Reached");
 			rb.gameObject.SetActive(false);
 			uiManager.SetWinScreen();
+			return;
+		}
+		else if (other.gameObject.CompareTag("Rotate")) {
+            gamestateManager.RotateState();
 			return;
 		}
 	}

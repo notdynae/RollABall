@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameState : MonoBehaviour
+public class GameStateManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PlayerController playerController;
+    public GameObject rotateCam;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void GameplayState() {
+        playerController.rb.isKinematic = false;
+        rotateCam.gameObject.SetActive(false);
+	}   
+    public void RotateState() {
+        playerController.rb.isKinematic = true;
+		rotateCam.gameObject.SetActive(true);
+	}
+
 }
