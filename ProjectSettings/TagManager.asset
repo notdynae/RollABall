@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Ball
   - Goal
+  - Rotate
   layers:
   - Default
   - TransparentFX
