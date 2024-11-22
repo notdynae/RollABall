@@ -52,9 +52,8 @@ public class PlayerController : MonoBehaviour {
 
     // FixedUpdate is called once per fixed frame-rate frame.
     private void FixedUpdate() {
-
         // Apply force to the Rigidbody to move the player.
-        rb.AddForce(movement * speed);
+        if (!gamestateManager.rotating) rb.AddForce(movement * speed);
     }
 	private void LateUpdate() {
 
@@ -86,11 +85,10 @@ public class PlayerController : MonoBehaviour {
 		else if (other.gameObject.CompareTag("Goal")) {
 			rb.gameObject.SetActive(false);
 			uiManager.SetWinScreen();
-			return;
 		}
 		else if (other.gameObject.CompareTag("Rotate")) {
             gamestateManager.RotateState();
-			return;
+            other.gameObject.SetActive(false);
 		}
 	}
 
